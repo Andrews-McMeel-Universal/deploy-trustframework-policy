@@ -182,8 +182,9 @@ async function run(): Promise<void> {
     }
   } catch (error: any) {
     core.info(`Deployment Failed`)
-    core.info(error)
     const errorText = error.message ?? error
+    core.info(error)
+    core.info(errorText)
     core.setFailed(errorText)
   }
 }
