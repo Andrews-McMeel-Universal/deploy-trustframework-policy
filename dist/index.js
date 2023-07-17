@@ -229,8 +229,9 @@ function run() {
         }
         catch (error) {
             core.info(`Deployment Failed`);
-            core.info(error);
             const errorText = (_a = error.message) !== null && _a !== void 0 ? _a : error;
+            core.info(error);
+            core.info(errorText);
             core.setFailed(errorText);
         }
     });
