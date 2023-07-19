@@ -1,3 +1,7 @@
+# ARCHIVED
+
+This repository has been archived as it has been made redundant due to the action in the [azure-ad-b2c/deploy-trustframework-policy](https://github.com/azure-ad-b2c/deploy-trustframework-policy) repository working properly.
+
 # GitHub Action for Deploying Azure AD B2C custom policies
 
 This is a fork of the [azure-ad-b2c/deploy-trustframework-policy](https://github.com/azure-ad-b2c/deploy-trustframework-policy) repository to add in additional error handling and other QOL improvements.
