@@ -1,7 +1,9 @@
-FROM ghcr.io/rajbos/actions-marketplace/powershell:7
+FROM mcr.microsoft.com/azure-powershell:latest
 
-WORKDIR /app
+ENV PSModulePath /usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules:/root/.local/share/powershell/Modules
 
-COPY entrypoint.ps1 ./
+RUN pwsh -c Install-Module -name pester -force
 
-ENTRYPOINT pwsh -File ./entrypoint.ps1
+ADD entrypoint.ps1 /entrypoint.ps1
+
+ENTRYPOINT ["pwsh", "/entrypoint.ps1"]
