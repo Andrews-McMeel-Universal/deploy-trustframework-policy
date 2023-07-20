@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY entrypoint.ps1 ./
 
-ENTRYPOINT pwsh /app/entrypoint.ps1
+ENTRYPOINT pwsh -File ./entrypoint.ps1
