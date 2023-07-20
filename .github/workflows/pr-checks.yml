@@ -5,35 +5,30 @@ on:
     types: [opened, synchronize, reopened]
 
 jobs:
-  action-build-and-test:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Test Action with Build
+  application-ci:
+    name: Install and run PSScriptAnalyzer
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install npm dependencies
+      - name: Install PSScriptAnalyzer module
+        shell: pwsh
         run: |
-          npm install
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module PSScriptAnalyzer -ErrorAction Stop
 
-      - name: Run action
+      - name: Lint with PSScriptAnalyzer
+        shell: pwsh
         run: |
-          npm run all
-
-  action-clean-test:
-    if: ${{ github.actor != 'dependabot[bot]' }}
-    name: Test Action w/o Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Uses an action in the root directory
-        uses: ./
-        with:
-          clientId: test
-          milliseconds: 1000
+          Invoke-ScriptAnalyzer -Path *.ps1 -Recurse -Outvariable issues
+          $errors   = $issues.Where({$_.Severity -eq 'Error'})
+          $warnings = $issues.Where({$_.Severity -eq 'Warning'})
+          if ($errors) {
+              Write-Error "There were $($errors.Count) errors and $($warnings.Count) warnings total." -ErrorAction Stop
+          } else {
+              Write-Output "There were $($errors.Count) errors and $($warnings.Count) warnings total."
+          }
 
   pr-labels:
     if: ${{ github.actor != 'dependabot[bot]' }}
@@ -67,7 +62,7 @@ jobs:
   required-checks:
     name: Required Checks
     runs-on: ubuntu-latest
-    needs: [action-build-and-test,action-clean-test]
+    needs: [application-ci]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
