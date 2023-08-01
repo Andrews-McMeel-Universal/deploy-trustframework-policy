@@ -255,6 +255,7 @@ megalinter-reports/*
 jscpd-report.json
 
 # Automated Testing
+/coverage/integration
 /test-results/
 /playwright/storage-states/
 /playwright/.cache/
