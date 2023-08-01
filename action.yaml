@@ -10,27 +10,27 @@ branding:
 
 inputs:
   folder:
-    description: 'The folder where the custom policies files are stored'
+    description: "The folder where the custom policies files are stored"
     required: true
   files:
-    description: 'Comma delimiter list of policy files'
+    description: "Comma delimiter list of policy files"
     required: true
   tenantDomain:
-    description: 'The full Azure AD B2C tenant name (for example, contoso.onmicrosoft.com) or GUID'
+    description: "The full Azure AD B2C tenant name (for example, contoso.onmicrosoft.com) or GUID"
     required: true
   tenantId:
-    description: 'The full GUID of the Azure AD B2C tenant ID'
+    description: "The full GUID of the Azure AD B2C tenant ID"
     required: true
   clientId:
-    description: 'The application Client ID for a service principal which will be used to authenticate to the Microsoft Graph'
+    description: "The application Client ID for a service principal which will be used to authenticate to the Microsoft Graph"
     required: true
   clientSecret:
-    description: 'The application Secret for a service principal which will be used to authenticate to the Microsoft Graph'
+    description: "The application Secret for a service principal which will be used to authenticate to the Microsoft Graph"
     required: true
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.clientId }}
     - ${{ inputs.clientSecret }}
