@@ -31,10 +31,3 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.clientId }}
-    - ${{ inputs.clientSecret }}
-    - ${{ inputs.tenantId }}
-    - ${{ inputs.folder }}
-    - ${{ inputs.files }}
-    - ${{ inputs.tenantDomain }}
