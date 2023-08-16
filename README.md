@@ -18,16 +18,16 @@ git clone https://github.com/Andrews-McMeel-Universal/deploy-trustframework-poli
 
 ### Inputs
 
-| Variable | Description | Required | `[Default]`  |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------: | ------------------------------------- |
-| `folder` | The folder where the custom policies files are stored | x | `N/A` |
-| `files` | Comma delimiter list of policy files | x | `N/A` |
-| `tenant` | The full Azure AD B2C tenant name (for example, contoso.onmicrosoft.com) or GUID | x | `N/A` |
-| `clientId` | The application Client ID for a service principal which will be used to authenticate to the Microsoft Graph | x | `N/A` |
-| `clientSecret` | The application Secret for a service principal which will be used to authenticate to the Microsoft Graph | x | `N/A` |
-| `renumberSteps` | Renumber the orchestration steps. Possible values: true, or false |  | `false` |
-| `addAppInsightsStep` | Add App Insights orchestration steps to the the user journeys. |  | `false` |
-| `verbose` | Log level verbose. |  | `false` |
+| Variable             | Description                                                                                                 | Required | `[Default]` |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | :------: | ----------- |
+| `folder`             | The folder where the custom policies files are stored                                                       |    x     | `N/A`       |
+| `files`              | Comma delimiter list of policy files                                                                        |    x     | `N/A`       |
+| `tenant`             | The full Azure AD B2C tenant name (for example, contoso.onmicrosoft.com) or GUID                            |    x     | `N/A`       |
+| `clientId`           | The application Client ID for a service principal which will be used to authenticate to the Microsoft Graph |    x     | `N/A`       |
+| `clientSecret`       | The application Secret for a service principal which will be used to authenticate to the Microsoft Graph    |    x     | `N/A`       |
+| `renumberSteps`      | Renumber the orchestration steps. Possible values: true, or false                                           |          | `false`     |
+| `addAppInsightsStep` | Add App Insights orchestration steps to the the user journeys.                                              |          | `false`     |
+| `verbose`            | Log level verbose.                                                                                          |          | `false`     |
 
 ### Sample workflow
 
@@ -42,17 +42,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Upload TrustFrameworkBase Policy
-      uses: azure-ad-b2c/deploy-trustframework-policy@v5
-      with:
-        folder: "./Policies"
-        files: "TrustFrameworkBase.xml,TrustFrameworkExtensions.xml,SignUpOrSignin.xml"
-        tenant: ${{ env.tenant }}
-        clientId: ${{ env.clientId }}
-        clientSecret: ${{ secrets.clientSecret }}
-        renumberSteps: false
+      - name: Upload TrustFrameworkBase Policy
+        uses: azure-ad-b2c/deploy-trustframework-policy@v5
+        with:
+          folder: "./Policies"
+          files: "TrustFrameworkBase.xml,TrustFrameworkExtensions.xml,SignUpOrSignin.xml"
+          tenant: ${{ env.tenant }}
+          clientId: ${{ env.clientId }}
+          clientSecret: ${{ secrets.clientSecret }}
+          renumberSteps: false
 ```
 
 ---
@@ -64,7 +64,7 @@ jobs:
 To update new version you must package this GitHub Action. Use the following commands to package the project:
 
 ```bash
-npm run-script build  
+npm run-script build
 npm run-script package
 ```
 
@@ -86,7 +86,7 @@ After the build is completed, you can see that the JavaScript files under the [d
 
 ### Build issues
 
-The GitHub build runs the scrips as described above. The `lint` script runs the  [eslint](https://eslint.org/) command. This command analyzes your code to quickly find problems. You can change the settings of the eslint command in the [.eslintrc.json](.eslintrc.json) file. The following example suppresses some of the errors:
+The GitHub build runs the scrips as described above. The `lint` script runs the [eslint](https://eslint.org/) command. This command analyzes your code to quickly find problems. You can change the settings of the eslint command in the [.eslintrc.json](.eslintrc.json) file. The following example suppresses some of the errors:
 
 ```json
 "rules": {
@@ -100,7 +100,7 @@ The GitHub build runs the scrips as described above. The `lint` script runs the 
 
 ### Test the action
 
-When you commit a change to any branch or a PR, the [test.yml](.github/workflows/test.yml) workflow runs with `clientId` parameter set to `test`. The `test` value indicates to the GitHub Action to exit the test successfully. We exit the test because because the  required parameters are not configured in this repo.
+When you commit a change to any branch or a PR, the [test.yml](.github/workflows/test.yml) workflow runs with `clientId` parameter set to `test`. The `test` value indicates to the GitHub Action to exit the test successfully. We exit the test because because the required parameters are not configured in this repo.
 
 To test the GitHub Action create your own repo, add the workflow. Then configure the [uses](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsuses) to point to your branch, fork, or commit. The following example demonstrate how to configure the workflow to use the latest commit in the `vNext` branch.
 

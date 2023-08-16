@@ -1,7 +1,9 @@
-FROM ghcr.io/rajbos/actions-marketplace/powershell:7
+FROM mcr.microsoft.com/powershell:ubuntu-18.04
 
 WORKDIR /app
 
-COPY entrypoint.ps1 ./
+RUN pwsh -Command "Install-Module -Name powershell-yaml -Repository PSGallery"
 
-ENTRYPOINT pwsh -File ./entrypoint.ps1
+COPY . .
+
+ENTRYPOINT ["pwsh", "/app/entrypoint.ps1"]
