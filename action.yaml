@@ -107,3 +107,4 @@ runs:
               exit 1
           }
           exit 0
+        azPSVersion: "latest"
